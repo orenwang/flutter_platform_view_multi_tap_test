@@ -313,9 +313,12 @@ class _CustomAndroidMotionEventConverter {
   }
 
   AndroidMotionEvent? toAndroidMotionEvent(PointerEvent event) {
-    final List<int> pointers = pointerPositions.keys.toList();
-    final int pointerIdx = pointers.indexOf(event.pointer);
-    final int numPointers = pointers.length;
+    // Sort the pointers manually to achieve the same behavior as Android.
+    final List<int> pointersSortedByPointerId = pointerPositions.keys.toList()
+      ..sort((a, b) =>
+          pointerProperties[a]!.id.compareTo(pointerProperties[b]!.id));
+    final int pointerIdx = pointersSortedByPointerId.indexOf(event.pointer);
+    final int numPointers = pointersSortedByPointerId.length;
 
     const int kPointerDataFlagBatched = 1;
 
@@ -348,10 +351,10 @@ class _CustomAndroidMotionEventConverter {
       eventTime: event.timeStamp.inMilliseconds,
       action: action,
       pointerCount: pointerPositions.length,
-      pointerProperties: pointers
+      pointerProperties: pointersSortedByPointerId
           .map<AndroidPointerProperties>((int i) => pointerProperties[i]!)
           .toList(),
-      pointerCoords: pointers
+      pointerCoords: pointersSortedByPointerId
           .map<AndroidPointerCoords>((int i) => pointerPositions[i]!)
           .toList(),
       metaState: 0,
