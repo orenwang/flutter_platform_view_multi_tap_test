@@ -4,6 +4,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
+import 'custom_surface_android_view_controller.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -55,15 +57,12 @@ class MultiTapTestNativeView extends StatelessWidget {
         );
       },
       onCreatePlatformView: (PlatformViewCreationParams params) {
-        return PlatformViewsService.initSurfaceAndroidView(
-          id: params.id,
+        return CustomSurfaceAndroidViewController(
+          viewId: params.id,
           viewType: viewType,
           layoutDirection: TextDirection.ltr,
           creationParams: creationParams,
           creationParamsCodec: const StandardMessageCodec(),
-          onFocus: () {
-            params.onFocusChanged(true);
-          },
         )
           ..addOnPlatformViewCreatedListener(params.onPlatformViewCreated)
           ..create();
