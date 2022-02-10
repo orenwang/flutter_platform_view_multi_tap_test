@@ -30,6 +30,8 @@ flutter:
       android:
         package: com.example.flutter_platform_view_multi_tap_test
         pluginClass: FlutterPlatformViewMultiTapTestPlugin
+      ios:
+        pluginClass: FlutterPlatformViewMultiTapTestPlugin
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:
