@@ -47,15 +47,31 @@ class FLNativeView: NSObject, FlutterPlatformView {
     func view() -> UIView {
         return _view
     }
+    
+    @objc
+    func buttonClicked() {}
 
     func createNativeView(view _view: UIView){
-        _view.backgroundColor = UIColor.blue
-        let nativeLabel = UILabel()
-        nativeLabel.text = "Native text from iOS"
-        nativeLabel.textColor = UIColor.white
-        nativeLabel.textAlignment = .center
-        nativeLabel.frame = CGRect(x: 0, y: 0, width: 180, height: 48.0)
-        _view.addSubview(nativeLabel)
+//        _view.backgroundColor = UIColor.blue
+//        let nativeLabel = UILabel()
+//        nativeLabel.text = "Native text from iOS"
+//        nativeLabel.textColor = UIColor.white
+//        nativeLabel.textAlignment = .center
+//        nativeLabel.frame = CGRect(x: 0, y: 0, width: 180, height: 48.0)
+//        _view.addSubview(nativeLabel)
+        let button1 = UIButton(type: .system)
+        button1.setTitle("Button 1", for: .normal)
+        button1.sizeToFit()
+        button1.backgroundColor = UIColor.lightGray
+        button1.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+        _view.addSubview(button1)
+        let button2 = UIButton(type: .system)
+        button2.setTitle("Button 2", for: .normal)
+        button2.center = CGPoint(x: 100, y: 0)
+        button2.sizeToFit()
+        button2.backgroundColor = UIColor.lightGray
+        button2.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+        _view.addSubview(button2)
     }
 }
 
